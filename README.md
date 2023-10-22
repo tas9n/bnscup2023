@@ -1,4 +1,4 @@
 # bnscup2023
 
-## ƒvƒŒƒC‰æ‘œ
-![gameplay image](https://github.com/tas9n/bnscup2023/gameplay.png)
+## Play image
+![gameplay image](https://raw.githubusercontent.com/tas9n/bnscup2023/master/gameplay.png?token=GHSAT0AAAAAACEBDPMLMTC7QSYPRXCFUO4GZJVJADA)
