@@ -1,0 +1,14 @@
+{
+	"title": "スペースコレクター",
+	"version": "1.0.0",
+	"fullscreen": {
+		"init": false,
+		"allow": false
+	},
+	"ui": {
+		"window_size": {
+			"x": 1280,
+			"y": 720
+		}
+	}
+}
