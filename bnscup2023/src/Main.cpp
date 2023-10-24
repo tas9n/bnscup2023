@@ -24,5 +24,7 @@ void Main() {
 
 	while (System::Update()) {
 		if (not manager.update()) break;
+
+		ScreenCapture::SetShortcutKeys({ KeyP });
 	}
 }
