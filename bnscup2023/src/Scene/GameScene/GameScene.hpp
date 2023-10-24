@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "../Common.hpp"
+#include "../../Utility/Theme.hpp"
+#include "../../Utility/Config.hpp"
 #include "../../GameObject/Player/Player.hpp"
 #include "../../GameObject/Meteo/Meteo.hpp"
 

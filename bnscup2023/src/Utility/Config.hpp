@@ -13,7 +13,12 @@ struct Config {
 
 	Size windowSize{ 1280, 720 };
 
+	Config() = default;
 	Config(FilePath path) {
+		init(path);
+	}
+
+	void init(FilePath path) {
 		try {
 			data = JSON::Load(path);
 

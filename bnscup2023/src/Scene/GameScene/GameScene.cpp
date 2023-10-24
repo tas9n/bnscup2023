@@ -44,7 +44,14 @@ void GameScene::draw() const {
 		for (const auto& meteo : m_meteos) meteo.draw();
 	}
 
-	m_player.hpBar.draw(Rect{ 10, 10, 210, 70 });
+	// 回りを暗く
+	Config config;
+	Circle{ Scene::Center(), config.windowSize.x }.draw(ColorF{ Palette::Black, 0.0 }, Palette::Black);
 
-	Print << m_player.isGameover();
+	Vec2 uiPos{ 10, 40 };
+
+	{
+		int32 offset = FontAsset(U"UI.Normal")(U"HP: ").draw(Arg::leftCenter(uiPos.movedBy(0, 15)), theme.uiFont).w;
+		m_player.hpBar.draw(RectF{ uiPos.movedBy(offset, 0), 210, 40 });
+	}
 }
