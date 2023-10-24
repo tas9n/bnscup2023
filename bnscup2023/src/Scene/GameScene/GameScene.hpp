@@ -8,6 +8,10 @@ class GameScene : public App::Scene {
 	Player m_player;
 	Array<Meteo> m_meteos;
 
+	// 連続ヒットしないように時間を置く
+	static constexpr double DecreasePlayerHPWaitTime = 0.5;
+	Stopwatch m_decreasePlayerHPCountor{ StartImmediately::Yes };
+
 public:
 	GameScene(const InitData&);
 

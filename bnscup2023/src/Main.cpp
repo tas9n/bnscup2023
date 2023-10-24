@@ -23,6 +23,7 @@ void Main() {
 	while (System::Update()) {
 		if (not manager.update()) break;
 
-		Circle{ Scene::Center(), config.windowSize.x }.draw(ColorF{ Palette::Black, 0.0 }, ColorF{ Palette::Black, 0.75 });
+		// 回りを暗く
+		Circle{ Scene::Center(), config.windowSize.x }.draw(ColorF{ Palette::Black, 0.0 }, Palette::Black);
 	}
 }

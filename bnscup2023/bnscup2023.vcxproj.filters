@@ -446,5 +446,8 @@
     <ClInclude Include="src\GameObject\GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utility\HPBar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

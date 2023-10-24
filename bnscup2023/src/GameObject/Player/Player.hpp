@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../GameObject.hpp"
+#include "../../Utility/HPBar.hpp"
 
 class Player : public GameObject {
 public:
@@ -14,8 +15,14 @@ public:
 	double direction = .0;
 	double rotationSpeed = 120_deg;
 
+	HPBar hpBar{ 100, 100 };
+
 	Player(const Vec2&);
 
 	void update() override;
 	void draw() const override;
+
+	void damage(int32);
+
+	bool isGameover() const;
 };

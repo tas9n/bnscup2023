@@ -228,6 +228,7 @@
     <ClInclude Include="src\Scene\TitleScene\TitleScene.hpp" />
     <ClInclude Include="src\Utility\Config.hpp" />
     <ClInclude Include="src\Utility\Debug.hpp" />
+    <ClInclude Include="src\Utility\HPBar.hpp" />
     <ClInclude Include="src\Utility\Theme.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

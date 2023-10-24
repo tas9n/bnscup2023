@@ -8,6 +8,8 @@ struct Meteo : public GameObject {
 	static constexpr int32 MoveSpeed = 150;
 	static constexpr double MaxLifetime = 3.0;
 
+	static constexpr int32 DamageValue = 25;
+
 	double direction = Random<double>(0_deg, 360_deg);
 
 	double elapsed = .0;

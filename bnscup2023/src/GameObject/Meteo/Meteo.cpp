@@ -9,8 +9,13 @@ void Meteo::update() {
 	elapsed += dt;
 
 	pos += Vec2::Up().rotated(direction) * MoveSpeed * dt;
+
+
+	collision.setPos(pos);
 }
 
 void Meteo::draw() const {
 	texture.drawAt(pos);
+
+	collision.drawFrame();
 }

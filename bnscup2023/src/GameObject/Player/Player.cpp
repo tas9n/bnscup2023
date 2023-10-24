@@ -12,8 +12,24 @@ void Player::update() {
 
 	if(MouseL.pressed())
 		pos += Vec2::Up().rotated(direction) * DefaultMoveSpeed * speed * dt;
+
+
+	collision.setPos(pos);
+
+	hpBar.update();
 }
 
 void Player::draw() const {
 	texture.rotated(DefaultTextureRotationOffset + direction).drawAt(pos);
+
+	collision.drawFrame();
+}
+
+
+void Player::damage(int32 ammount) {
+	hpBar.damage(ammount);
+}
+
+bool Player::isGameover() const {
+	return hpBar.getHP() <= 0;
 }
