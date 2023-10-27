@@ -28,5 +28,7 @@ public:
 
 	void update() override;
 
+	void updateFadeIn(double) override;
+
 	void draw() const override;
 };

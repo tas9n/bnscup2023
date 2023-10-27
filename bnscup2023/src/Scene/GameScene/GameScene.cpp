@@ -47,6 +47,19 @@ void GameScene::update() {
 	m_camera.setCenter(m_camera.getCenter().lerp(m_player.pos, 0.0075));
 }
 
+void GameScene::updateFadeIn(double) {
+	// フェードイン中でもエフェクトが出るように
+	{
+		auto t = m_camera.createTransformer();
+
+		// EffectAppendTwinkleStarWaitTime毎にTwinkleStar追加
+		if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
+			m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
+			m_effectAppendTwinkleStarCountor.restart();
+		}
+	}
+}
+
 void GameScene::draw() const {
 	{
 		auto t = m_camera.createTransformer();
