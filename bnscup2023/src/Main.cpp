@@ -32,6 +32,8 @@ void Main() {
 		if (not manager.update()) break;
 
 		// デバッグ用
-		ScreenCapture::SetShortcutKeys({ KeyP });
+		if (KeyP.down()) {
+			ScreenCapture::SaveCurrentFrame(U"../../../gameplay.png");
+		}
 	}
 }
