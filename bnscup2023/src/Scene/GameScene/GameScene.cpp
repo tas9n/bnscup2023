@@ -65,6 +65,6 @@ void GameScene::draw() const {
 
 	{
 		int32 offset = FontAsset(U"UI.Normal")(U"HP: ").draw(Arg::leftCenter(uiPos.movedBy(0, 15)), theme.uiFont).w;
-		m_player.hpBar.draw(RectF{ uiPos.movedBy(offset, 0), 210, 40 });
+		m_player.hpBar.draw(RectF{ uiPos.movedBy(offset, 0), 210, 30 });
 	}
 }

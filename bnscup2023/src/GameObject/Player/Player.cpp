@@ -21,8 +21,6 @@ void Player::update() {
 
 void Player::draw() const {
 	texture.rotated(DefaultTextureRotationOffset + direction).drawAt(pos);
-
-	collision.drawFrame();
 }
 
 
