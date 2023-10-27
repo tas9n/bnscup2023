@@ -14,8 +14,12 @@ struct Junk : public GameObject {
 	static constexpr double FixScalingTime = .25;
 	double scale = .0;
 
+	bool isPickuped = false;
+
 	Junk(const Vec2&);
 
 	void update() override;
 	void draw() const override;
+
+	void pick();
 };

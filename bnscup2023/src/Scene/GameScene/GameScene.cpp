@@ -33,6 +33,10 @@ void GameScene::update() {
 	}
 
 	for (auto& junk : m_junks) {
+		if (m_player.interact(junk) && not junk.isPickuped) {
+			junk.pick();
+			getData().score += JunkScoreAmmount;
+		}
 		junk.update();
 	}
 
@@ -91,7 +95,10 @@ void GameScene::draw() const {
 	{
 		double offset = FontAsset(U"UI.Normal")(U"HP: ").draw(Arg::leftCenter(uiPos.movedBy(0, 15)), theme.uiFont).w;
 		m_player.hpBar.draw(RectF{ uiPos.movedBy(offset, 0), 210, 30 });
+		uiPos.y += 60;
 	}
+
+	FontAsset(U"UI.Normal")(U"Score: {}"_fmt(getData().score)).draw(Arg::leftCenter(uiPos), theme.uiFont);
 }
 
 Vec2 GameScene::getPointOnRandomEdge(const Vec2& size) const {

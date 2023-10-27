@@ -24,6 +24,7 @@ class GameScene : public App::Scene {
 	static constexpr double MeteoSpawnWaitTime = 0.75;
 	Stopwatch m_meteoSpawnCountor{ StartImmediately::Yes };
 
+	static constexpr int32 JunkScoreAmmount = 100;
 	static constexpr double JunkSpawnWaitTime = 1.25;
 	Stopwatch m_junkSpawnCountor{ StartImmediately::Yes };
 

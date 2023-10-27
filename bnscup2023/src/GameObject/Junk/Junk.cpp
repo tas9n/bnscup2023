@@ -15,6 +15,7 @@ void Junk::update() {
 		scale = 1.0;
 	}
 	else {
+		isPickuped = true;
 		scale = Periodic::Sine0_1(FixScalingTime * 2, elapsed - (Lifetime - FixScalingTime) + FixScalingTime / 2);
 	}
 
@@ -27,4 +28,9 @@ void Junk::draw() const {
 	auto tex = texture.scaled(scale);
 	tex.rotated(Periodic::Sine1_1(1s, elapsed) * 15_deg).drawAt(pos, ColorF{ Palette::White, scale });
 	tex.scaled(1.1).rotated(Periodic::Sine1_1(1s, elapsed) * 15_deg).drawAt(pos, ColorF{Palette::White, scale});
+}
+
+void Junk::pick() {
+	isPickuped = true;
+	elapsed = Lifetime - FixScalingTime;
 }

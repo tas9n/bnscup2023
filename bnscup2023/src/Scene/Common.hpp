@@ -7,7 +7,7 @@ enum class SceneState {
 };
 
 struct GameData {
-
+	int32 score;
 };
 
 using App = SceneManager<SceneState, GameData>;
