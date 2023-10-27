@@ -18,6 +18,9 @@ class GameScene : public App::Scene {
 	static constexpr double DecreasePlayerHPWaitTime = 0.5;
 	Stopwatch m_decreasePlayerHPCountor{ StartImmediately::Yes };
 
+	static constexpr double MeteoSpawnWaitTime = 0.75;
+	Stopwatch m_meteoSpawnCountor{ StartImmediately::Yes };
+
 	Effect m_effect;
 	static constexpr double EffectAppendTwinkleStarWaitTime = 0.05;
 	Stopwatch m_effectAppendTwinkleStarCountor{ StartImmediately::Yes };
@@ -31,4 +34,6 @@ public:
 	void updateFadeIn(double) override;
 
 	void draw() const override;
+
+	Vec2 getPointOnRandomEdge(const Vec2&) const;
 };

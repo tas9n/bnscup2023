@@ -10,10 +10,19 @@ void Meteo::update() {
 
 	pos += Vec2::Up().rotated(direction) * MoveSpeed * dt;
 
+	if (elapsed <= FixScalingTime) {
+		opacity = Periodic::Sine0_1(FixScalingTime * 2, elapsed - FixScalingTime / 2);
+	}
+	else if(elapsed <= Lifetime - FixScalingTime){
+		opacity = 1.0;
+	}
+	else {
+		opacity = Periodic::Sine0_1(FixScalingTime * 2, elapsed - (Lifetime - FixScalingTime) + FixScalingTime / 2);
+	}
 
 	collision.setPos(pos);
 }
 
 void Meteo::draw() const {
-	texture.drawAt(pos);
+	texture.drawAt(pos, ColorF{ Palette::White, opacity });
 }

@@ -7,15 +7,12 @@ GameScene::GameScene(const InitData& init) : IScene(init),
 }
 
 void GameScene::update() {
-	if (MouseR.down()) {
-		auto t = m_camera.createTransformer();
-		m_meteos << Meteo{ Cursor::PosF() };
-	}
+	Config config;
 
 
 	// 
 	m_meteos.remove_if([&](const Meteo& meteo) {
-		return Meteo::MaxLifetime < meteo.elapsed;
+		return Meteo::Lifetime < meteo.elapsed;
 	});
 
 	// Updates
@@ -32,15 +29,17 @@ void GameScene::update() {
 		meteo.update();
 	}
 
-	// transformerでupdate
-	{
-		auto t = m_camera.createTransformer();
+	// meteo
+	if (MeteoSpawnWaitTime <= m_meteoSpawnCountor.sF()) {
+		auto pos = getPointOnRandomEdge(config.windowSize);
+		m_meteos << Meteo{ m_player.pos - config.windowSize / 2 + pos };
+		m_meteoSpawnCountor.restart();
+	}
 
-		// EffectAppendTwinkleStarWaitTime毎にTwinkleStar追加
-		if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
-			m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
-			m_effectAppendTwinkleStarCountor.restart();
-		}
+	// effect
+	if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
+		m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
+		m_effectAppendTwinkleStarCountor.restart();
 	}
 
 	// カメラ追従
@@ -77,7 +76,17 @@ void GameScene::draw() const {
 	Vec2 uiPos{ 10, 40 };
 
 	{
-		int32 offset = FontAsset(U"UI.Normal")(U"HP: ").draw(Arg::leftCenter(uiPos.movedBy(0, 15)), theme.uiFont).w;
+		double offset = FontAsset(U"UI.Normal")(U"HP: ").draw(Arg::leftCenter(uiPos.movedBy(0, 15)), theme.uiFont).w;
 		m_player.hpBar.draw(RectF{ uiPos.movedBy(offset, 0), 210, 30 });
 	}
+}
+
+Vec2 GameScene::getPointOnRandomEdge(const Vec2& size) const {
+	int32 side = Random(0, 3);
+
+	if (side == 0) return Vec2{ Random(0.0, size.x), 0.0 };
+	if (side == 1) return Vec2{ Random(0.0, size.x), size.y };
+	if (side == 2) return Vec2{ 0.0, Random(0.0, size.y) };
+
+	return Vec2{ size.x, Random(0.0, size.y) };
 }
