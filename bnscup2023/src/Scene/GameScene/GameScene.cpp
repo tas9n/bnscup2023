@@ -41,8 +41,6 @@ void GameScene::update() {
 			m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
 			m_effectAppendTwinkleStarCountor.restart();
 		}
-
-		m_effect.update();
 	}
 
 	// カメラ追従
@@ -52,6 +50,8 @@ void GameScene::update() {
 void GameScene::draw() const {
 	{
 		auto t = m_camera.createTransformer();
+
+		m_effect.update();
 
 		m_player.draw();
 		for (const auto& meteo : m_meteos) meteo.draw();
