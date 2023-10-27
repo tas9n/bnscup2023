@@ -15,6 +15,7 @@ void Main() {
 
 	FontAsset::Register(U"UI.Normal", 48);
 
+	// シーンのあれこれ
 	App manager;
 	manager
 		.add<TitleScene>(SceneState::Title)
@@ -22,9 +23,15 @@ void Main() {
 
 	manager.init(SceneState::Game);
 
+	// lightblooom用
+	const RenderTexture gaussianA1{ config.windowSize }, gaussianB1{ config.windowSize };
+	const RenderTexture gaussianA4{ config.windowSize / 4 }, gaussianB4{ config.windowSize / 4 };
+
+	// ゲームループ(各シーンにupdate)
 	while (System::Update()) {
 		if (not manager.update()) break;
 
+		// デバッグ用
 		ScreenCapture::SetShortcutKeys({ KeyP });
 	}
 }

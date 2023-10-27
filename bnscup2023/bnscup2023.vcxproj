@@ -117,6 +117,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Effect\TwinkleStar\TwinkleStar.cpp" />
     <ClCompile Include="src\GameObject\Meteo\Meteo.cpp" />
     <ClCompile Include="src\GameObject\Player\Player.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -220,6 +221,7 @@
     <None Include="App\engine\soundfont\GMGSx.sf2.zstdcmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Effect\TwinkleStar\TwinkleStar.hpp" />
     <ClInclude Include="src\GameObject\GameObject.hpp" />
     <ClInclude Include="src\GameObject\Meteo\Meteo.hpp" />
     <ClInclude Include="src\GameObject\Player\Player.hpp" />

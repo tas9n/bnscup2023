@@ -32,8 +32,21 @@ void GameScene::update() {
 		meteo.update();
 	}
 
-	// Set camera forcus center
-	m_camera.setCenter(m_camera.getCenter().lerp(m_player.pos, 0.01));
+	// transformerでupdate
+	{
+		auto t = m_camera.createTransformer();
+
+		// EffectAppendTwinkleStarWaitTime毎にTwinkleStar追加
+		if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
+			m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
+			m_effectAppendTwinkleStarCountor.restart();
+		}
+
+		m_effect.update();
+	}
+
+	// カメラ追従
+	m_camera.setCenter(m_camera.getCenter().lerp(m_player.pos, 0.0075));
 }
 
 void GameScene::draw() const {

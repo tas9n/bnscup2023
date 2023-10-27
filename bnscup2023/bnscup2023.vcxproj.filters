@@ -156,6 +156,9 @@
     <ClCompile Include="src\GameObject\Meteo\Meteo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Effect\TwinkleStar\TwinkleStar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -447,6 +450,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Utility\HPBar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Effect\TwinkleStar\TwinkleStar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
