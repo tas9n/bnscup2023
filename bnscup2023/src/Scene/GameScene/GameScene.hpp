@@ -6,13 +6,16 @@
 
 #include "../../GameObject/Player/Player.hpp"
 #include "../../GameObject/Meteo/Meteo.hpp"
+#include "../../GameObject/Junk/Junk.hpp"
 
 #include "../../Effect/TwinkleStar/TwinkleStar.hpp"
 
 class GameScene : public App::Scene {
 	BasicCamera2D m_camera;
 	Player m_player;
+
 	Array<Meteo> m_meteos;
+	Array<Junk> m_junks;
 
 	// 連続ヒットしないように時間を置く
 	static constexpr double DecreasePlayerHPWaitTime = 0.5;
@@ -20,6 +23,9 @@ class GameScene : public App::Scene {
 
 	static constexpr double MeteoSpawnWaitTime = 0.75;
 	Stopwatch m_meteoSpawnCountor{ StartImmediately::Yes };
+
+	static constexpr double JunkSpawnWaitTime = 1.25;
+	Stopwatch m_junkSpawnCountor{ StartImmediately::Yes };
 
 	Effect m_effect;
 	static constexpr double EffectAppendTwinkleStarWaitTime = 0.05;

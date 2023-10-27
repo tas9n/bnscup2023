@@ -9,10 +9,13 @@ GameScene::GameScene(const InitData& init) : IScene(init),
 void GameScene::update() {
 	Config config;
 
-
-	// 
+	// lifetime
 	m_meteos.remove_if([&](const Meteo& meteo) {
 		return Meteo::Lifetime < meteo.elapsed;
+	});
+
+	m_junks.remove_if([&](const Junk& junk) {
+		return Junk::Lifetime < junk.elapsed;
 	});
 
 	// Updates
@@ -29,11 +32,20 @@ void GameScene::update() {
 		meteo.update();
 	}
 
+	for (auto& junk : m_junks) {
+		junk.update();
+	}
+
 	// meteo
 	if (MeteoSpawnWaitTime <= m_meteoSpawnCountor.sF()) {
 		auto pos = getPointOnRandomEdge(config.windowSize);
 		m_meteos << Meteo{ m_player.pos - config.windowSize / 2 + pos };
 		m_meteoSpawnCountor.restart();
+	}
+
+	if (JunkSpawnWaitTime <= m_junkSpawnCountor.sF()) {
+		m_junks << Junk{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
+		m_junkSpawnCountor.restart();
 	}
 
 	// effect
@@ -67,6 +79,7 @@ void GameScene::draw() const {
 
 		m_player.draw();
 		for (const auto& meteo : m_meteos) meteo.draw();
+		for (const auto& junk : m_junks) junk.draw();
 	}
 
 	// 回りを暗く
