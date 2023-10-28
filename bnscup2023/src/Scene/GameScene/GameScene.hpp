@@ -30,7 +30,6 @@ class GameScene : public App::Scene {
 	static constexpr int32 JunkScoreAmmount = 100;
 	Spawner m_junkSpawner{ 1.25s, StartImmediately::Yes };
 
-	static constexpr int32 HoleSpawnWaitTime = 6.5;
 	Spawner m_holeSpawner{ 6.5s, StartImmediately::Yes };
 
 	Effect m_effect;

@@ -17,5 +17,6 @@ struct Spawner {
 			watch.restart();
 			return true;
 		}
+		return false;
 	}
 };
