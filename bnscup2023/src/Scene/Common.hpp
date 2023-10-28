@@ -3,7 +3,8 @@
 
 enum class SceneState {
 	Title,
-	Game
+	Game,
+	Score
 };
 
 struct GameData {

@@ -14,19 +14,28 @@ void GameScene::update() {
 	removeIfPassLifetime(m_junks);
 	removeIfPassLifetime(m_holes);
 
-	/*
-	m_meteos.remove_if([&](const Meteo& meteo) {
-		return Meteo::Lifetime < meteo.elapsed;
-	});
+	// effect
+	if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
+		m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
+		m_effectAppendTwinkleStarCountor.restart();
+	}
 
-	m_junks.remove_if([&](const Junk& junk) {
-		return Junk::Lifetime < junk.elapsed;
-	});
+	// Spawn
+	if (MeteoSpawnWaitTime <= m_meteoSpawnCountor.sF()) {
+		auto pos = getPointOnRandomEdge(config.windowSize);
+		m_meteos << Meteo{ m_player.pos - config.windowSize / 2 + pos };
+		m_meteoSpawnCountor.restart();
+	}
 
-	m_holes.remove_if([&](const Hole& hole) {
-		return Hole::Lifetime < hole.elapsed;
-	});
-	*/
+	if (JunkSpawnWaitTime <= m_junkSpawnCountor.sF()) {
+		m_junks << Junk{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
+		m_junkSpawnCountor.restart();
+	}
+
+	if (HoleSpawnWaitTime <= m_holeSpawnCountor.sF()) {
+		m_holes << Hole{ OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) } };
+		m_holeSpawnCountor.restart();
+	}
 
 	// Updates
 	m_player.update();
@@ -63,27 +72,8 @@ void GameScene::update() {
 		hole.update();
 	}
 
-	// meteo
-	if (MeteoSpawnWaitTime <= m_meteoSpawnCountor.sF()) {
-		auto pos = getPointOnRandomEdge(config.windowSize);
-		m_meteos << Meteo{ m_player.pos - config.windowSize / 2 + pos };
-		m_meteoSpawnCountor.restart();
-	}
-
-	if (JunkSpawnWaitTime <= m_junkSpawnCountor.sF()) {
-		m_junks << Junk{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
-		m_junkSpawnCountor.restart();
-	}
-
-	if (HoleSpawnWaitTime <= m_holeSpawnCountor.sF()) {
-		m_holes << Hole{ OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) } };
-		m_holeSpawnCountor.restart();
-	}
-
-	// effect
-	if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
-		m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
-		m_effectAppendTwinkleStarCountor.restart();
+	if (m_player.hpBar.getHP() <= 0) {
+		changeScene(SceneState::Score);
 	}
 
 	// カメラ追従

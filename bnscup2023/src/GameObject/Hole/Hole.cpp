@@ -23,4 +23,5 @@ void Hole::update() {
 
 void Hole::draw() const {
 	texture.scaled(scale).drawAt(pos);
+	collision.scaled(scale).draw(Palette::Black, ColorF{ Palette::Black, 0 });
 }

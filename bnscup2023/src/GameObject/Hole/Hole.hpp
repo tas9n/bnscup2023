@@ -13,7 +13,7 @@ struct Hole : public GameObject {
 
 	double elapsed = .0;
 
-	static constexpr double FixScalingTime = .1;
+	static constexpr double FixScalingTime = .5;
 
 	Hole(const Vec2&);
 
