@@ -3,6 +3,7 @@
 
 #include "../../Utility/Theme.hpp"
 #include "../../Utility/Config.hpp"
+#include "../../Utility/Spawner.hpp"
 
 #include "../../GameObject/Player/Player.hpp"
 #include "../../GameObject/Meteo/Meteo.hpp"
@@ -23,19 +24,17 @@ class GameScene : public App::Scene {
 	static constexpr double DecreasePlayerHPWaitTime = 0.5;
 	Stopwatch m_decreasePlayerHPCountor{ StartImmediately::Yes };
 
-	static constexpr double MeteoSpawnWaitTime = 0.75;
-	Stopwatch m_meteoSpawnCountor{ StartImmediately::Yes };
+	// Spawner
+	Spawner m_meteoSpawner{ 0.75s, StartImmediately::Yes };
 
 	static constexpr int32 JunkScoreAmmount = 100;
-	static constexpr double JunkSpawnWaitTime = 1.25;
-	Stopwatch m_junkSpawnCountor{ StartImmediately::Yes };
+	Spawner m_junkSpawner{ 1.25s, StartImmediately::Yes };
 
 	static constexpr int32 HoleSpawnWaitTime = 6.5;
-	Stopwatch m_holeSpawnCountor{ StartImmediately::Yes };
+	Spawner m_holeSpawner{ 6.5s, StartImmediately::Yes };
 
 	Effect m_effect;
-	static constexpr double EffectAppendTwinkleStarWaitTime = 0.05;
-	Stopwatch m_effectAppendTwinkleStarCountor{ StartImmediately::Yes };
+	Spawner m_twinkleStarSpawner{ 0.05s, StartImmediately::Yes };
 
 	int32 m_level = 1;
 

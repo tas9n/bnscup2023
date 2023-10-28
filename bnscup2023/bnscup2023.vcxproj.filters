@@ -467,5 +467,8 @@
     <ClInclude Include="src\GameObject\Hole\Hole.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utility\Spawner.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

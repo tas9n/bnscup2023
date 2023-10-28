@@ -15,26 +15,22 @@ void GameScene::update() {
 	removeIfPassLifetime(m_holes);
 
 	// effect
-	if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
+	if (m_twinkleStarSpawner.update()) {
 		m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
-		m_effectAppendTwinkleStarCountor.restart();
 	}
 
 	// Spawn
-	if (MeteoSpawnWaitTime <= m_meteoSpawnCountor.sF()) {
+	if (m_meteoSpawner.update()) {
 		auto pos = getPointOnRandomEdge(config.windowSize);
 		m_meteos << Meteo{ m_player.pos - config.windowSize / 2 + pos };
-		m_meteoSpawnCountor.restart();
 	}
 
-	if (JunkSpawnWaitTime <= m_junkSpawnCountor.sF()) {
+	if (m_junkSpawner.update()) {
 		m_junks << Junk{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
-		m_junkSpawnCountor.restart();
 	}
 
-	if (HoleSpawnWaitTime <= m_holeSpawnCountor.sF()) {
+	if (m_holeSpawner.update()) {
 		m_holes << Hole{ OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) } };
-		m_holeSpawnCountor.restart();
 	}
 
 	// Updates
@@ -86,9 +82,8 @@ void GameScene::updateFadeIn(double) {
 		auto t = m_camera.createTransformer();
 
 		// EffectAppendTwinkleStarWaitTime毎にTwinkleStar追加
-		if (EffectAppendTwinkleStarWaitTime <= m_effectAppendTwinkleStarCountor.sF()) {
+		if (m_twinkleStarSpawner.update()) {
 			m_effect.add<TwinkleStar>(m_player.pos.movedBy(Scene::Size() / 2) - RandomVec2(Scene::Width(), Scene::Height()));
-			m_effectAppendTwinkleStarCountor.restart();
 		}
 	}
 }
