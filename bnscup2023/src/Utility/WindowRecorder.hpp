@@ -10,6 +10,7 @@ public:
 	/// @param size 動画サイズ
 	/// @param fps fps
 	WindowRecorder() { }
+	~WindowRecorder() { m_writer.close(); }
 
 	void open(FilePath path, Size size, double fps) {
 		m_writer.open(path, size, fps);
@@ -17,7 +18,7 @@ public:
 
 	/// @brief 実行中、ウィンドウを録画し、動画に書き込みます。
 	void update() {
-		if (m_writer.isOpen()) return;
+		if (not m_writer.isOpen()) return;
 
 		double fps = m_writer.getFPS();
 
