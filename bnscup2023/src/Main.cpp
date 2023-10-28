@@ -25,15 +25,18 @@ void Main() {
 
 	manager.init(SceneState::Game);
 
-	WindowRecorder recorder{ U"../../gameplay.mp4", config.windowSize, 60 };
+	WindowRecorder recorder;
 	bool recoderFlag = false;
 
 	// ゲームループ(各シーンにupdate)
 	while (System::Update()) {
 		if (not manager.update()) break;
 
-		if (KeyR.down())
+		if (KeyR.down()) {
+			if(not recorder.isOpen())
+				recorder.open(U"../../gameplay.mp4", config.windowSize, 60);
 			recoderFlag = not recoderFlag;
+		}
 
 		if(recoderFlag)
 			recorder.update();
