@@ -35,7 +35,7 @@ void GameScene::update() {
 	for (auto& junk : m_junks) {
 		if (m_player.interact(junk) && not junk.isPickuped) {
 			junk.pick();
-			getData().score += JunkScoreAmmount;
+			addScore(JunkScoreAmmount);
 		}
 		junk.update();
 	}
@@ -99,6 +99,11 @@ void GameScene::draw() const {
 	}
 
 	FontAsset(U"UI.Normal")(U"Score: {}"_fmt(getData().score)).draw(Arg::leftCenter(uiPos), theme.uiFont);
+}
+
+void GameScene::addScore(int32 add) {
+	int32& score = getData().score;
+	score += add;
 }
 
 Vec2 GameScene::getPointOnRandomEdge(const Vec2& size) const {

@@ -32,6 +32,7 @@ class GameScene : public App::Scene {
 	static constexpr double EffectAppendTwinkleStarWaitTime = 0.05;
 	Stopwatch m_effectAppendTwinkleStarCountor{ StartImmediately::Yes };
 
+	int32 m_level = 1;
 
 public:
 	GameScene(const InitData&);
@@ -41,6 +42,8 @@ public:
 	void updateFadeIn(double) override;
 
 	void draw() const override;
+
+	void addScore(int32);
 
 	Vec2 getPointOnRandomEdge(const Vec2&) const;
 };

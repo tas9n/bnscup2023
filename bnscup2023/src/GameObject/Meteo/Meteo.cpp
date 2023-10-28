@@ -1,6 +1,6 @@
 ﻿#include "Meteo.hpp"
 
-Meteo::Meteo(const Vec2& pos) : GameObject(pos, AssetName, U"🪨"_emoji, TextureSize) {
+Meteo::Meteo(const Vec2& pos) : GameObject(pos, AssetName, U"🪨"_emoji, TextureSize, TextureSize - 30) {
 	direction = Random<double>(0_deg, 360_deg);
 }
 

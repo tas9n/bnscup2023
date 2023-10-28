@@ -1,6 +1,6 @@
 ﻿#include "Junk.hpp"
 
-Junk::Junk(const Vec2& position) : GameObject(position, AssetName, U"💎"_emoji, TextureSize) {
+Junk::Junk(const Vec2& position) : GameObject(position, AssetName, U"💎"_emoji, TextureSize, 32) {
 
 }
 
@@ -19,6 +19,7 @@ void Junk::update() {
 		scale = Periodic::Sine0_1(FixScalingTime * 2, elapsed - (Lifetime - FixScalingTime) + FixScalingTime / 2);
 	}
 
+	collision.scaled(scale);
 	collision.setPos(pos);
 }
 
@@ -27,7 +28,7 @@ void Junk::draw() const {
 
 	auto tex = texture.scaled(scale);
 	tex.rotated(Periodic::Sine1_1(1s, elapsed) * 15_deg).drawAt(pos, ColorF{ Palette::White, scale });
-	tex.scaled(1.1).rotated(Periodic::Sine1_1(1s, elapsed) * 15_deg).drawAt(pos, ColorF{Palette::White, scale});
+	tex.scaled(1.1).rotated(Periodic::Sine1_1(1s, elapsed) * 15_deg).drawAt(pos, ColorF{Palette::White, .5 * scale});
 }
 
 void Junk::pick() {

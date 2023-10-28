@@ -8,9 +8,9 @@ struct GameObject {
 
 	Circle collision;
 
-	GameObject(const Vec2& position, const String& assetName, const Emoji& emoji, int32 size) :
+	GameObject(const Vec2& position, const String& assetName, const Emoji& emoji, int32 size, int32 collisionSize) :
 		pos{ position },
-		collision{ position, size / 2} {
+		collision{ position, collisionSize / 2} {
 		if (not TextureAsset::IsRegistered(assetName)) {
 			TextureAsset::Register(assetName, emoji);
 		}
@@ -20,6 +20,10 @@ struct GameObject {
 
 	virtual void update() = 0;
 	virtual void draw() const = 0;
+
+	void drawCollision() const {
+		collision.drawFrame();
+	}
 
 	bool interact(const GameObject& other) {
 		return collision.intersects(other.collision);
