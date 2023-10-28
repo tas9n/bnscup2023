@@ -7,10 +7,10 @@ Player::Player(const Vec2& pos) : GameObject(pos, AssetName, U"🚀"_emoji, Text
 void Player::update() {
 	double dt = Scene::DeltaTime();
 
-	if (KeyA.pressed()) direction -= rotationSpeed * dt;
-	if (KeyD.pressed()) direction += rotationSpeed * dt;
+	if (KeyA.pressed()) angle -= rotationSpeed * dt;
+	if (KeyD.pressed()) angle += rotationSpeed * dt;
 
-	pos += Vec2::Up().rotated(direction) * DefaultMoveSpeed * speed * dt;
+	pos += Circular{ DefaultMoveSpeed * speed * dt, angle };
 
 
 	collision.setPos(pos);
@@ -19,7 +19,7 @@ void Player::update() {
 }
 
 void Player::draw() const {
-	texture.rotated(DefaultTextureRotationOffset + direction).drawAt(pos);
+	texture.rotated(DefaultTextureRotationOffset + angle).drawAt(pos);
 }
 
 

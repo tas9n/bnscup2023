@@ -7,6 +7,7 @@
 #include "../../GameObject/Player/Player.hpp"
 #include "../../GameObject/Meteo/Meteo.hpp"
 #include "../../GameObject/Junk/Junk.hpp"
+#include "../../GameObject/Hole/Hole.hpp"
 
 #include "../../Effect/TwinkleStar/TwinkleStar.hpp"
 
@@ -16,6 +17,7 @@ class GameScene : public App::Scene {
 
 	Array<Meteo> m_meteos;
 	Array<Junk> m_junks;
+	Array<Hole> m_holes;
 
 	// 連続ヒットしないように時間を置く
 	static constexpr double DecreasePlayerHPWaitTime = 0.5;
@@ -27,6 +29,9 @@ class GameScene : public App::Scene {
 	static constexpr int32 JunkScoreAmmount = 100;
 	static constexpr double JunkSpawnWaitTime = 1.25;
 	Stopwatch m_junkSpawnCountor{ StartImmediately::Yes };
+
+	static constexpr int32 HoleSpawnWaitTime = 6.5;
+	Stopwatch m_holeSpawnCountor{ StartImmediately::Yes };
 
 	Effect m_effect;
 	static constexpr double EffectAppendTwinkleStarWaitTime = 0.05;
@@ -42,6 +47,9 @@ public:
 	void updateFadeIn(double) override;
 
 	void draw() const override;
+
+	template<class T>
+	void removeIfPassLifetime(Array<T>&);
 
 	void addScore(int32);
 

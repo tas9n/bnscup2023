@@ -10,6 +10,11 @@ void GameScene::update() {
 	Config config;
 
 	// lifetime
+	removeIfPassLifetime(m_meteos);
+	removeIfPassLifetime(m_junks);
+	removeIfPassLifetime(m_holes);
+
+	/*
 	m_meteos.remove_if([&](const Meteo& meteo) {
 		return Meteo::Lifetime < meteo.elapsed;
 	});
@@ -17,6 +22,11 @@ void GameScene::update() {
 	m_junks.remove_if([&](const Junk& junk) {
 		return Junk::Lifetime < junk.elapsed;
 	});
+
+	m_holes.remove_if([&](const Hole& hole) {
+		return Hole::Lifetime < hole.elapsed;
+	});
+	*/
 
 	// Updates
 	m_player.update();
@@ -40,6 +50,19 @@ void GameScene::update() {
 		junk.update();
 	}
 
+	for (auto& hole : m_holes) {
+		if (m_player.interact(hole)) {
+			if (DecreasePlayerHPWaitTime <= m_decreasePlayerHPCountor.sF()) {
+				m_player.damage(Hole::DamageValue);
+				m_decreasePlayerHPCountor.restart();
+			}
+
+			m_player.angle = Math::LerpAngle(m_player.angle, Vec2{ hole.pos - m_player.pos }.getAngle(), 0.01);
+		}
+
+		hole.update();
+	}
+
 	// meteo
 	if (MeteoSpawnWaitTime <= m_meteoSpawnCountor.sF()) {
 		auto pos = getPointOnRandomEdge(config.windowSize);
@@ -50,6 +73,11 @@ void GameScene::update() {
 	if (JunkSpawnWaitTime <= m_junkSpawnCountor.sF()) {
 		m_junks << Junk{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
 		m_junkSpawnCountor.restart();
+	}
+
+	if (HoleSpawnWaitTime <= m_holeSpawnCountor.sF()) {
+		m_holes << Hole{ OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) } };
+		m_holeSpawnCountor.restart();
 	}
 
 	// effect
@@ -81,9 +109,12 @@ void GameScene::draw() const {
 
 		m_effect.update();
 
-		m_player.draw();
-		for (const auto& meteo : m_meteos) meteo.draw();
 		for (const auto& junk : m_junks) junk.draw();
+		for (const auto& hole : m_holes) hole.draw();
+
+		m_player.draw();
+
+		for (const auto& meteo : m_meteos) meteo.draw();
 	}
 
 	// 回りを暗く
@@ -99,6 +130,13 @@ void GameScene::draw() const {
 	}
 
 	FontAsset(U"UI.Normal")(U"Score: {}"_fmt(getData().score)).draw(Arg::leftCenter(uiPos), theme.uiFont);
+}
+
+template<class T>
+void GameScene::removeIfPassLifetime(Array<T>& objects) {
+	objects.remove_if([](const T& obj) {
+		return T::Lifetime < obj.elapsed;
+	});
 }
 
 void GameScene::addScore(int32 add) {

@@ -12,7 +12,7 @@ public:
 	static constexpr int32 DefaultMoveSpeed = 200;
 
 	double speed = 1.0;
-	double direction = .0;
+	double angle = .0;
 	double rotationSpeed = 120_deg;
 
 	HPBar hpBar{ 100, 100 };

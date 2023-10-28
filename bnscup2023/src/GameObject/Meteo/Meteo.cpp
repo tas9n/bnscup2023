@@ -1,16 +1,16 @@
 ﻿#include "Meteo.hpp"
 
-Meteo::Meteo(const Vec2& pos) : GameObject(pos, AssetName, U"🪨"_emoji, TextureSize, TextureSize - 30) {
+Meteo::Meteo(const Vec2& pos) : GameObject(pos, AssetName, U"🌑"_emoji, TextureSize, TextureSize - 30) {
 	direction = Random<double>(0_deg, 360_deg);
 
-	scale = Random(0.8, 1.2);
+	scale = Random(0.5, 1.2);
 }
 
 void Meteo::update() {
 	double dt = Scene::DeltaTime();
 	elapsed += dt;
 
-	pos += Vec2::Up().rotated(direction) * MoveSpeed * dt;
+	pos += Vec2::Up().rotated(direction) * MoveSpeed * (1.2 - scale) * dt;
 
 	if (elapsed <= FixScalingTime) {
 		opacity = Periodic::Sine0_1(FixScalingTime * 2, elapsed - FixScalingTime / 2);

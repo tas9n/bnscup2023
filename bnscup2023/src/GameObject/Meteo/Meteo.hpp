@@ -5,7 +5,7 @@ struct Meteo : public GameObject {
 	static constexpr int32 TextureSize = 128;
 	static constexpr char32 AssetName[] = U"Object.Meteo";
 
-	static constexpr int32 MoveSpeed = 100;
+	static constexpr int32 MoveSpeed = 300;
 	static constexpr double Lifetime = 4.5;
 
 	static constexpr int32 DamageValue = 25;
