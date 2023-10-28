@@ -237,6 +237,7 @@
     <ClInclude Include="src\Utility\HPBar.hpp" />
     <ClInclude Include="src\Utility\Spawner.hpp" />
     <ClInclude Include="src\Utility\Theme.hpp" />
+    <ClInclude Include="src\Utility\WindowRecorder.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

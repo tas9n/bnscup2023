@@ -2,6 +2,8 @@
 #include "Utility/Config.hpp"
 #include "Utility/Theme.hpp"
 
+#include "Utility/WindowRecorder.hpp"
+
 #include "Scene/Common.hpp"
 #include "Scene/TitleScene/TitleScene.hpp"
 #include "Scene/GameScene/GameScene.hpp"
@@ -23,13 +25,18 @@ void Main() {
 
 	manager.init(SceneState::Game);
 
-	// lightblooom用
-	const RenderTexture gaussianA1{ config.windowSize }, gaussianB1{ config.windowSize };
-	const RenderTexture gaussianA4{ config.windowSize / 4 }, gaussianB4{ config.windowSize / 4 };
+	WindowRecorder recorder{ U"../../gameplay.mp4", config.windowSize, 60 };
+	bool recoderFlag = false;
 
 	// ゲームループ(各シーンにupdate)
 	while (System::Update()) {
 		if (not manager.update()) break;
+
+		if (KeyR.down())
+			recoderFlag = not recoderFlag;
+
+		if(recoderFlag)
+			recorder.update();
 
 		// デバッグ用
 		if (KeyP.down()) {
