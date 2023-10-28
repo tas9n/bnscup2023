@@ -2,7 +2,7 @@
 #include "../GameObject.hpp"
 
 struct Hole : public GameObject {
-	static constexpr int32 TextureSize = 90;
+	static constexpr int32 TextureSize = 128;
 	static constexpr char32 AssetName[] = U"Object.Hole";
 
 	static constexpr double Lifetime = 8.0;
