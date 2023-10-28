@@ -1,7 +1,7 @@
 ﻿#include "Junk.hpp"
 
 Junk::Junk(const Vec2& position) : GameObject(position, AssetName, U"💎"_emoji, TextureSize, 32) {
-
+	scale = .0;
 }
 
 void Junk::update() {
@@ -19,7 +19,6 @@ void Junk::update() {
 		scale = Periodic::Sine0_1(FixScalingTime * 2, elapsed - (Lifetime - FixScalingTime) + FixScalingTime / 2);
 	}
 
-	collision.scaled(scale);
 	collision.setPos(pos);
 }
 

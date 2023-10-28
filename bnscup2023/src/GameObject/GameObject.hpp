@@ -8,6 +8,8 @@ struct GameObject {
 
 	Circle collision;
 
+	double scale = 1.0;
+
 	GameObject(const Vec2& position, const String& assetName, const Emoji& emoji, int32 size, int32 collisionSize) :
 		pos{ position },
 		collision{ position, collisionSize / 2} {
@@ -26,6 +28,6 @@ struct GameObject {
 	}
 
 	bool interact(const GameObject& other) {
-		return collision.intersects(other.collision);
+		return collision.scaled(scale).intersects(other.collision.scaled(other.scale));
 	}
 };

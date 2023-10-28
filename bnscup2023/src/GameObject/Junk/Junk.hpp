@@ -12,7 +12,6 @@ struct Junk : public GameObject {
 	double elapsed = .0;
 
 	static constexpr double FixScalingTime = .25;
-	double scale = .0;
 
 	bool isPickuped = false;
 

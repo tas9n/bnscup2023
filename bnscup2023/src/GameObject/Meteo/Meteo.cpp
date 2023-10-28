@@ -2,6 +2,8 @@
 
 Meteo::Meteo(const Vec2& pos) : GameObject(pos, AssetName, U"🪨"_emoji, TextureSize, TextureSize - 30) {
 	direction = Random<double>(0_deg, 360_deg);
+
+	scale = Random(0.8, 1.2);
 }
 
 void Meteo::update() {
@@ -24,5 +26,5 @@ void Meteo::update() {
 }
 
 void Meteo::draw() const {
-	texture.drawAt(pos, ColorF{ Palette::White, opacity });
+	texture.scaled(scale).drawAt(pos, ColorF{Palette::White, opacity});
 }
