@@ -21,8 +21,7 @@ class GameScene : public App::Scene {
 	Array<Hole> m_holes;
 
 	// 連続ヒットしないように時間を置く
-	static constexpr double DecreasePlayerHPWaitTime = 0.5;
-	Stopwatch m_decreasePlayerHPCountor{ StartImmediately::Yes };
+	Spawner m_decreasePlayerHPCountor{ 0.5s, StartImmediately::Yes };
 
 	// Spawner
 	Spawner m_meteoSpawner{ 0.75s, StartImmediately::Yes };
@@ -48,6 +47,8 @@ public:
 
 	template<class T>
 	void removeIfPassLifetime(Array<T>&);
+
+	void damagedPlayer(int32);
 
 	void addScore(int32);
 

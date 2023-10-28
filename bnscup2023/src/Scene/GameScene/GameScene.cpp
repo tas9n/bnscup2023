@@ -3,7 +3,6 @@
 GameScene::GameScene(const InitData& init) : IScene(init),
 	m_camera{ Vec2::Zero(), 1.0 }, m_player{ Vec2::Zero() } {
 
-	m_decreasePlayerHPCountor.set(SecondsF{ DecreasePlayerHPWaitTime });
 }
 
 void GameScene::update() {
@@ -38,10 +37,7 @@ void GameScene::update() {
 
 	for (auto& meteo : m_meteos) {
 		if (m_player.interact(meteo)) {
-			if (DecreasePlayerHPWaitTime <= m_decreasePlayerHPCountor.sF()) {
-				m_player.damage(Meteo::DamageValue);
-				m_decreasePlayerHPCountor.restart();
-			}
+			damagedPlayer(meteo.DamageValue);
 		}
 
 		meteo.update();
@@ -57,10 +53,7 @@ void GameScene::update() {
 
 	for (auto& hole : m_holes) {
 		if (m_player.interact(hole)) {
-			if (DecreasePlayerHPWaitTime <= m_decreasePlayerHPCountor.sF()) {
-				m_player.damage(Hole::DamageValue);
-				m_decreasePlayerHPCountor.restart();
-			}
+			damagedPlayer(hole.DamageValue);
 
 			m_player.angle = Math::LerpAngle(m_player.angle, Vec2{ hole.pos - m_player.pos }.getAngle(), 0.01);
 		}
@@ -122,6 +115,12 @@ void GameScene::removeIfPassLifetime(Array<T>& objects) {
 	objects.remove_if([](const T& obj) {
 		return T::Lifetime < obj.elapsed;
 	});
+}
+
+void GameScene::damagedPlayer(int32 damage) {
+	if (m_decreasePlayerHPCountor.update()) {
+		m_player.damage(damage);
+	}
 }
 
 void GameScene::addScore(int32 add) {
