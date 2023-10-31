@@ -104,13 +104,10 @@ void GameScene::draw() const {
 
 	Vec2 uiPos{ 10, 40 };
 
-	{
-		double offset = FontAsset(U"UI.Normal")(U"HP: ").draw(Arg::leftCenter(uiPos.movedBy(0, 15)), theme.uiFont).w;
-		m_player.hpBar.draw(RectF{ uiPos.movedBy(offset, 0), 210, 30 });
-		uiPos.y += 60;
-	}
+	m_player.hpBar.draw(RectF{ uiPos, 210, 32 });
+	uiPos.y += 32 + 10;
 
-	FontAsset(U"UI.Normal")(U"Score: {}"_fmt(getData().score)).draw(Arg::leftCenter(uiPos), theme.uiFont);
+	FontAsset(U"UI.Normal")(U"Score: {}"_fmt(getData().score)).draw(uiPos, theme.uiFont);
 }
 
 template<class T>

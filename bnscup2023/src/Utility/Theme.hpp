@@ -5,5 +5,5 @@
 
 inline struct Theme {
 	Color background{ 48, 56, 119 };
-	Color uiFont{ 90, 149, 188 };
+	Color uiFont{ 122, 181, 220 };
 } theme;

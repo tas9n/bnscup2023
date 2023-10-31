@@ -21,7 +21,7 @@ class GameScene : public App::Scene {
 	Array<Hole> m_holes;
 
 	// 連続ヒットしないように時間を置く
-	Spawner m_decreasePlayerHPCountor{ 0.5s, StartImmediately::Yes };
+	Spawner m_decreasePlayerHPCountor{ 1.0s, StartImmediately::Yes };
 
 	// Spawner
 	Spawner m_meteoSpawner{ 0.75s, StartImmediately::Yes };
@@ -31,8 +31,10 @@ class GameScene : public App::Scene {
 
 	Spawner m_holeSpawner{ 6.5s, StartImmediately::Yes };
 
+	// Effect
 	Effect m_effect;
 	Spawner m_twinkleStarSpawner{ 0.05s, StartImmediately::Yes };
+
 
 	int32 m_level = 1;
 
