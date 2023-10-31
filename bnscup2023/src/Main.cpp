@@ -17,6 +17,11 @@ void Main() {
 
 	FontAsset::Register(U"UI.Normal", 48);
 
+	AudioAsset::Register(U"Global.BGM", U"resource/sounds/bgm.mp3", Loop::Yes);
+	AudioAsset::Register(U"Game.PickupItem", U"resource/sounds/pickup-item.mp3");
+	AudioAsset::Register(U"Game.Hit.Blackhole", U"resource/sounds/hit-blackhole.mp3");
+	AudioAsset::Register(U"Game.Player.Damaged", U"resource/sounds/player.damaged.mp3");
+
 	// シーンのあれこれ
 	App manager;
 	manager

@@ -1,6 +1,6 @@
 ﻿#include "Hole.hpp"
 
-Hole::Hole(const Vec2& position) : GameObject(position, AssetName, U"⚫"_emoji, TextureSize, TextureSize * 3) {
+Hole::Hole(const Vec2& position) : GameObject(position, AssetName, U"⚫"_emoji, TextureSize, TextureSize * 2.5) {
 	scale = .0;
 }
 

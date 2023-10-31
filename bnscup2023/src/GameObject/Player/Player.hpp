@@ -17,6 +17,9 @@ public:
 
 	HPBar hpBar{ 100, 100 };
 
+	static constexpr double MaxDamagedTimer = .5;
+	Stopwatch damagedTimer{ StartImmediately::No };
+
 	Player(const Vec2&);
 
 	void update() override;

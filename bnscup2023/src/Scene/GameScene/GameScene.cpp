@@ -3,6 +3,7 @@
 GameScene::GameScene(const InitData& init) : IScene(init),
 	m_camera{ Vec2::Zero(), 1.0 }, m_player{ Vec2::Zero() } {
 
+	AudioAsset(U"Global.BGM").playOneShot(0.5, 0.0, 0.75);
 }
 
 void GameScene::update() {
@@ -47,6 +48,7 @@ void GameScene::update() {
 		if (m_player.interact(junk) && not junk.isPickuped) {
 			junk.pick();
 			addScore(JunkScoreAmmount);
+			AudioAsset(U"Game.PickupItem").playOneShot();
 		}
 		junk.update();
 	}
@@ -55,6 +57,7 @@ void GameScene::update() {
 		if (m_player.interact(hole)) {
 			damagedPlayer(hole.DamageValue);
 
+			// ブラックホールに吸い込まれるような動作
 			m_player.angle = Math::LerpAngle(m_player.angle, Vec2{ hole.pos - m_player.pos }.getAngle(), 0.01);
 		}
 
@@ -120,6 +123,7 @@ void GameScene::removeIfPassLifetime(Array<T>& objects) {
 void GameScene::damagedPlayer(int32 damage) {
 	if (m_decreasePlayerHPCountor.update()) {
 		m_player.damage(damage);
+		AudioAsset(U"Game.Player.Damaged").playOneShot();
 	}
 }
 
