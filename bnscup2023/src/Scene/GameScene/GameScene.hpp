@@ -9,6 +9,7 @@
 #include "../../GameObject/Meteo/Meteo.hpp"
 #include "../../GameObject/Junk/Junk.hpp"
 #include "../../GameObject/Hole/Hole.hpp"
+#include "../../GameObject/Medicine/Medicine.hpp"
 
 #include "../../Effect/TwinkleStar/TwinkleStar.hpp"
 
@@ -19,6 +20,7 @@ class GameScene : public App::Scene {
 	Array<Meteo> m_meteos;
 	Array<Junk> m_junks;
 	Array<Hole> m_holes;
+	Array<Medicine> m_medicines;
 
 	// 連続ヒットしないように時間を置く
 	Spawner m_decreasePlayerHPCountor{ 1.0s, StartImmediately::Yes };
@@ -30,6 +32,8 @@ class GameScene : public App::Scene {
 	Spawner m_junkSpawner{ 1.25s, StartImmediately::Yes };
 
 	Spawner m_holeSpawner{ 6.5s, StartImmediately::Yes };
+
+	Spawner m_medicineSpawner{ 3.0s, StartImmediately::Yes };
 
 	// Effect
 	Effect m_effect;

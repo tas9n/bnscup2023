@@ -120,6 +120,7 @@
     <ClCompile Include="src\Effect\TwinkleStar\TwinkleStar.cpp" />
     <ClCompile Include="src\GameObject\Hole\Hole.cpp" />
     <ClCompile Include="src\GameObject\Junk\Junk.cpp" />
+    <ClCompile Include="src\GameObject\Medicine\Medicine.cpp" />
     <ClCompile Include="src\GameObject\Meteo\Meteo.cpp" />
     <ClCompile Include="src\GameObject\Player\Player.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="src\GameObject\GameObject.hpp" />
     <ClInclude Include="src\GameObject\Hole\Hole.hpp" />
     <ClInclude Include="src\GameObject\Junk\Junk.hpp" />
+    <ClInclude Include="src\GameObject\Medicine\Medicine.hpp" />
     <ClInclude Include="src\GameObject\Meteo\Meteo.hpp" />
     <ClInclude Include="src\GameObject\Player\Player.hpp" />
     <ClInclude Include="src\Scene\Common.hpp" />

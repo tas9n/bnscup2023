@@ -13,6 +13,7 @@ void GameScene::update() {
 	removeIfPassLifetime(m_meteos);
 	removeIfPassLifetime(m_junks);
 	removeIfPassLifetime(m_holes);
+	removeIfPassLifetime(m_medicines);
 
 	// effect
 	if (m_twinkleStarSpawner.update()) {
@@ -31,6 +32,10 @@ void GameScene::update() {
 
 	if (m_holeSpawner.update()) {
 		m_holes << Hole{ OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) } };
+	}
+
+	if (m_medicineSpawner.update()) {
+		m_medicines << Medicine{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
 	}
 
 	// Updates
@@ -64,6 +69,16 @@ void GameScene::update() {
 		hole.update();
 	}
 
+	for (auto& medicine : m_medicines) {
+		if (m_player.interact(medicine) && not medicine.isPickuped) {
+			medicine.pick();
+			damagedPlayer(medicine.DamageValue);
+			AudioAsset(U"Game.PickupItem").playOneShot();
+		}
+
+		medicine.update();
+	}
+
 	if (m_player.hpBar.getHP() <= 0) {
 		changeScene(SceneState::Score);
 	}
@@ -91,6 +106,7 @@ void GameScene::draw() const {
 		m_effect.update();
 
 		for (const auto& junk : m_junks) junk.draw();
+		for (const auto& medicine : m_medicines) medicine.draw();
 		for (const auto& hole : m_holes) hole.draw();
 
 		m_player.draw();
@@ -119,8 +135,10 @@ void GameScene::removeIfPassLifetime(Array<T>& objects) {
 
 void GameScene::damagedPlayer(int32 damage) {
 	if (m_decreasePlayerHPCountor.update()) {
-		m_player.damage(damage);
-		AudioAsset(U"Game.Player.Damaged").playOneShot();
+		if (0 <= damage) {
+			getData().score -= 50;
+			m_player.damage(damage);
+		} else m_player.heal(-damage);
 	}
 }
 

@@ -26,6 +26,7 @@ public:
 	void draw() const override;
 
 	void damage(int32);
+	void heal(int32);
 
 	bool isGameover() const;
 };

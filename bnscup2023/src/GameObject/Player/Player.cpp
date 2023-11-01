@@ -30,7 +30,14 @@ void Player::draw() const {
 void Player::damage(int32 ammount) {
 	hpBar.damage(ammount);
 
+	AudioAsset(U"Game.Player.Damaged").playOneShot();
 	damagedTimer.restart();
+}
+
+void Player::heal(int32 ammount) {
+	hpBar.heal(ammount);
+
+	AudioAsset::Register(U"Game.PickupItem", U"resource/sounds/pickup-item.mp3");
 }
 
 bool Player::isGameover() const {
