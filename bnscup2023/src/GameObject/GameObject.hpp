@@ -58,7 +58,7 @@ struct GameObject {
 	virtual constexpr double getMaxLifetime() const = 0;
 
 	void drawCollision() const {
-		collision.drawFrame();
+		collision.scaled(scale).drawFrame();
 	}
 
 	bool interact(const GameObject& other) {

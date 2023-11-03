@@ -2,6 +2,7 @@
 
 Junk::Junk(const Vec2& position) : Item(GameObject::TypeTag::Junk, position, AssetName, U"💎"_emoji, TextureSize, 32, .25, 100) {
 	scale = Random(.5, 1.5);
+	collision.r *= scale;
 }
 
 void Junk::update() {

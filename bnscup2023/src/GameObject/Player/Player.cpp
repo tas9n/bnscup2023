@@ -1,6 +1,6 @@
 ﻿#include "Player.hpp"
 
-Player::Player(const Vec2& pos) : GameObject(GameObject::TypeTag::Player, pos, AssetName, U"🚀"_emoji, TextureSize, 64, .0) {
+Player::Player(const Vec2& pos) : GameObject(GameObject::TypeTag::Player, pos, AssetName, U"🚀"_emoji, TextureSize, 48, .0) {
 	
 }
 

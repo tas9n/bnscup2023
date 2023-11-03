@@ -9,15 +9,6 @@ GameScene::GameScene(const InitData& init) : IScene(init),
 void GameScene::update() {
 	Config config;
 
-	// lifetime
-	/*
-	removeIfPassLifetime(m_meteos);
-	removeIfPassLifetime(m_junks);
-	removeIfPassLifetime(m_holes);
-	removeIfPassLifetime(m_medicines);
-	removeIfPassLifetime(m_injectors);
-	*/
-
 	m_objects.remove_if([](const std::shared_ptr<GameObject>& object) {
 		return object->getMaxLifetime() <= object->timer.sF();
 	});
@@ -56,19 +47,6 @@ void GameScene::update() {
 			getData().score += m_player.onCollision(object, m_interactInterval.update());
 		}
 	}
-
-	/*
-
-	for (auto& medicine : m_medicines) {
-		if (m_player.interact(medicine) && not medicine.isPickuped) {
-			medicine.pick();
-			damagedPlayer(medicine.DamageValue);
-			AudioAsset(U"Game.PickupItem").playOneShot();
-		}
-
-		medicine.update();
-	}
-	*/
 
 	if (m_player.hpBar.getHP() <= 0) {
 		changeScene(SceneState::Score);

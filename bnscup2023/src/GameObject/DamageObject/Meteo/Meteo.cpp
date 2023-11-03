@@ -1,7 +1,7 @@
 ﻿#include "Meteo.hpp"
 
 Meteo::Meteo(const Vec2& pos) :
-	DamageObject(GameObject::TypeTag::Meteo, pos, AssetName, U"🌑"_emoji, TextureSize, TextureSize - 30, .75, DamageValue) {
+	DamageObject(GameObject::TypeTag::Meteo, pos, AssetName, U"🌑"_emoji, TextureSize, TextureSize - 32, .75, DamageValue) {
 
 	direction = Random<double>(0_deg, 360_deg);
 
