@@ -10,10 +10,17 @@ void GameScene::update() {
 	Config config;
 
 	// lifetime
+	/*
 	removeIfPassLifetime(m_meteos);
 	removeIfPassLifetime(m_junks);
 	removeIfPassLifetime(m_holes);
 	removeIfPassLifetime(m_medicines);
+	removeIfPassLifetime(m_injectors);
+	*/
+
+	m_objects.remove_if([](const std::shared_ptr<GameObject>& object) {
+		return object->getMaxLifetime() <= object->timer.sF();
+	});
 
 	// effect
 	if (m_twinkleStarSpawner.update()) {
@@ -21,53 +28,36 @@ void GameScene::update() {
 	}
 
 	// Spawn
+
 	if (m_meteoSpawner.update()) {
 		auto pos = getPointOnRandomEdge(config.windowSize);
-		m_meteos << Meteo{ m_player.pos - config.windowSize / 2 + pos };
+		m_objects << std::make_shared<Meteo>(m_player.pos - config.windowSize / 2 + pos);
 	}
 
 	if (m_junkSpawner.update()) {
-		m_junks << Junk{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
+		m_objects << std::make_shared<Junk>(m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }));
 	}
 
 	if (m_holeSpawner.update()) {
-		m_holes << Hole{ OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) } };
+		m_objects << std::make_shared<Hole>(OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) });
 	}
 
 	if (m_medicineSpawner.update()) {
-		m_medicines << Medicine{ m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }) };
+		m_objects << std::make_shared<Medicine>(m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }));
 	}
 
 	// Updates
 	m_player.update();
 
-	for (auto& meteo : m_meteos) {
-		if (m_player.interact(meteo)) {
-			damagedPlayer(meteo.DamageValue);
-		}
+	for (std::shared_ptr<GameObject>& object : m_objects) {
+		object->update();
 
-		meteo.update();
+		if (object->interact(m_player)) {
+			getData().score += m_player.onCollision(object, m_interactInterval.update());
+		}
 	}
 
-	for (auto& junk : m_junks) {
-		if (m_player.interact(junk) && not junk.isPickuped) {
-			junk.pick();
-			addScore(JunkScoreAmmount);
-			AudioAsset(U"Game.PickupItem").playOneShot();
-		}
-		junk.update();
-	}
-
-	for (auto& hole : m_holes) {
-		if (m_player.interact(hole)) {
-			damagedPlayer(hole.DamageValue);
-
-			// ブラックホールに吸い込まれるような動作
-			m_player.angle = Math::LerpAngle(m_player.angle, Vec2{ hole.pos - m_player.pos }.getAngle(), 0.01);
-		}
-
-		hole.update();
-	}
+	/*
 
 	for (auto& medicine : m_medicines) {
 		if (m_player.interact(medicine) && not medicine.isPickuped) {
@@ -78,6 +68,7 @@ void GameScene::update() {
 
 		medicine.update();
 	}
+	*/
 
 	if (m_player.hpBar.getHP() <= 0) {
 		changeScene(SceneState::Score);
@@ -105,13 +96,11 @@ void GameScene::draw() const {
 
 		m_effect.update();
 
-		for (const auto& junk : m_junks) junk.draw();
-		for (const auto& medicine : m_medicines) medicine.draw();
-		for (const auto& hole : m_holes) hole.draw();
+		for (const std::shared_ptr<GameObject>& object : m_objects) {
+			object->draw();
+		}
 
 		m_player.draw();
-
-		for (const auto& meteo : m_meteos) meteo.draw();
 	}
 
 	// 回りを暗く
@@ -134,7 +123,7 @@ void GameScene::removeIfPassLifetime(Array<T>& objects) {
 }
 
 void GameScene::damagedPlayer(int32 damage) {
-	if (m_decreasePlayerHPCountor.update()) {
+	if (m_interactInterval.update()) {
 		if (0 <= damage) {
 			getData().score -= 50;
 			m_player.damage(damage);

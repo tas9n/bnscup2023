@@ -153,19 +153,22 @@
     <ClCompile Include="src\GameObject\Player\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject\Meteo\Meteo.cpp">
+    <ClCompile Include="src\GameObject\DamageObject\Meteo\Meteo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Effect\TwinkleStar\TwinkleStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject\Junk\Junk.cpp">
+    <ClCompile Include="src\GameObject\Item\Junk\Junk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject\Hole\Hole.cpp">
+    <ClCompile Include="src\GameObject\DamageObject\Hole\Hole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject\Medicine\Medicine.cpp">
+    <ClCompile Include="src\GameObject\Item\Medicine\Medicine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Item\Injector\Injector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -452,7 +455,7 @@
     <ClInclude Include="src\GameObject\Player\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObject\Meteo\Meteo.hpp">
+    <ClInclude Include="src\GameObject\DamageObject\Meteo\Meteo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\GameObject.hpp">
@@ -464,10 +467,10 @@
     <ClInclude Include="src\Effect\TwinkleStar\TwinkleStar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObject\Junk\Junk.hpp">
+    <ClInclude Include="src\GameObject\Item\Junk\Junk.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObject\Hole\Hole.hpp">
+    <ClInclude Include="src\GameObject\DamageObject\Hole\Hole.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Utility\Spawner.hpp">
@@ -476,7 +479,16 @@
     <ClInclude Include="src\Utility\WindowRecorder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObject\Medicine\Medicine.hpp">
+    <ClInclude Include="src\GameObject\Item\Medicine\Medicine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Item\Injector\Injector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\DamageObject\DamageObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Item\Item.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

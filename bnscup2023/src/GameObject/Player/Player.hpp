@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "../GameObject.hpp"
+#include "../DamageObject/DamageObject.hpp"
+#include "../Item/Item.hpp"
 #include "../../Utility/HPBar.hpp"
 
 class Player : public GameObject {
@@ -24,6 +26,10 @@ public:
 
 	void update() override;
 	void draw() const override;
+
+	int32 onCollision(std::shared_ptr<GameObject>&, bool);
+
+	constexpr double getMaxLifetime() const override;
 
 	void damage(int32);
 	void heal(int32);
