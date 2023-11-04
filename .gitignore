@@ -412,5 +412,5 @@ gmon.out
 # Ignore resource files
 **/App/example
 **/App/resource
-#**/App/engine
-#**/App/dll
+
+__environment.hpp
