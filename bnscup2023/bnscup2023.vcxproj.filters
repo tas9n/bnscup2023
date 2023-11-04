@@ -168,9 +168,6 @@
     <ClCompile Include="src\GameObject\Item\Medicine\Medicine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject\Item\Injector\Injector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\ScoreScene\ScoreScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -483,9 +480,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\Item\Medicine\Medicine.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObject\Item\Injector\Injector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\DamageObject\DamageObject.hpp">

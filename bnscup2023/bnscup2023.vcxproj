@@ -119,7 +119,6 @@
   <ItemGroup>
     <ClCompile Include="src\Effect\TwinkleStar\TwinkleStar.cpp" />
     <ClCompile Include="src\GameObject\DamageObject\Hole\Hole.cpp" />
-    <ClCompile Include="src\GameObject\Item\Injector\Injector.cpp" />
     <ClCompile Include="src\GameObject\Item\Junk\Junk.cpp" />
     <ClCompile Include="src\GameObject\Item\Medicine\Medicine.cpp" />
     <ClCompile Include="src\GameObject\DamageObject\Meteo\Meteo.cpp" />
@@ -230,7 +229,6 @@
     <ClInclude Include="src\GameObject\DamageObject\DamageObject.hpp" />
     <ClInclude Include="src\GameObject\GameObject.hpp" />
     <ClInclude Include="src\GameObject\DamageObject\Hole\Hole.hpp" />
-    <ClInclude Include="src\GameObject\Item\Injector\Injector.hpp" />
     <ClInclude Include="src\GameObject\Item\Item.hpp" />
     <ClInclude Include="src\GameObject\Item\Junk\Junk.hpp" />
     <ClInclude Include="src\GameObject\Item\Medicine\Medicine.hpp" />
