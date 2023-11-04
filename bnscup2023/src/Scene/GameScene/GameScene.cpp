@@ -11,6 +11,28 @@ void GameScene::update() {
 
 	if (not m_timer.isStarted()) m_timer.start();
 
+	if (m_scorePostTask && m_scorePostTask->isReady()) {
+		if (const auto response = m_scorePostTask->getResponse();
+			response.isOK()) {
+
+			changeScene(SceneState::Score);
+		}
+		else {
+			Print << U"Failed to submit the score.";
+		}
+	}
+
+	if (m_scorePostTask) return;
+
+	if (m_player.hpBar.getHP() <= 0) {
+		m_scorePostTask = LeaderBoard::CreatePostTask(getData().LeaderboardURL, getData().config.username, getData().score, m_timer.sF());
+		m_fadeoutTimer.start();
+
+		m_timer.pause();
+
+		AudioAsset(U"Global.BGM").stopAllShots();
+	}
+
 	m_objects.remove_if([](const std::shared_ptr<GameObject>& object) {
 		return object->getMaxLifetime() <= object->timer.sF();
 	});
@@ -55,12 +77,8 @@ void GameScene::update() {
 		}
 	}
 
-	if (m_player.hpBar.getHP() <= 0) {
-		changeScene(SceneState::Score);
-	}
-
 	if (m_spawnerScaleIncreaceTimer.update()) {
-		addScore(static_cast<int32>(100.0 * (0.1 * m_gameLevel)));
+		addScore(static_cast<int32>(100.0 * m_gameLevel));
 
 		m_gameLevel += 1;
 
@@ -104,7 +122,7 @@ void GameScene::draw() const {
 		if (m_levelUpAnimTimer.isStarted()) {
 			if (m_levelUpAnimTimer.sF() < LevelUpAnimTime) {
 				double ratio = Periodic::Jump0_1(LevelUpAnimTime, m_levelUpAnimTimer.sF());
-				FontAsset(U"UI.Small")(U"Level Up!!\n(Level: {})"_fmt(m_gameLevel))
+				FontAsset(U"UI.Small")(U"Level Up!!\n(Level: {})"_fmt(m_gameLevel + 1))
 					.drawAt(m_player.pos, ColorF{ Palette::Lightgreen, ratio });
 			}
 		}
@@ -123,6 +141,12 @@ void GameScene::draw() const {
 
 	FontAsset(U"UI.Normal")(U"経過時間: {:.1f}"_fmt(m_timer.sF())).draw(Arg::topRight(config.windowSize.x - 10, 10));
 
+	if (m_scorePostTask) {
+		double ratio = m_fadeoutTimer.sF() / FadeOutTime;
+		ratio = Math::Clamp(ratio, 0, m_fadeoutTimer.sF() / FadeOutTime);
+
+		Scene::Rect().draw(ColorF{ Palette::Black, ratio });
+	}
 }
 
 template<class T>

@@ -1,14 +1,15 @@
-{
-	"title": "スペースコレクター",
-	"version": "1.0.0",
-	"fullscreen": {
-		"init": false,
-		"allow": false
-	},
-	"ui": {
-		"window_size": {
-			"x": 1280,
-			"y": 720
-		}
-	}
+﻿{
+  "fullscreen": {
+    "allow": false,
+    "init": false
+  },
+  "title": "スペースコレクター",
+  "ui": {
+    "window_size": {
+      "x": 1280,
+      "y": 720
+    }
+  },
+  "username": "Short Dog 4346",
+  "version": "1.0.0"
 }

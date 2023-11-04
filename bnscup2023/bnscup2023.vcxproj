@@ -126,6 +126,7 @@
     <ClCompile Include="src\GameObject\Player\Player.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scene\GameScene\GameScene.cpp" />
+    <ClCompile Include="src\Scene\ScoreScene\ScoreScene.cpp" />
     <ClCompile Include="src\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -237,10 +238,12 @@
     <ClInclude Include="src\GameObject\Player\Player.hpp" />
     <ClInclude Include="src\Scene\Common.hpp" />
     <ClInclude Include="src\Scene\GameScene\GameScene.hpp" />
+    <ClInclude Include="src\Scene\ScoreScene\ScoreScene.hpp" />
     <ClInclude Include="src\Scene\TitleScene\TitleScene.hpp" />
     <ClInclude Include="src\Utility\Config.hpp" />
     <ClInclude Include="src\Utility\Debug.hpp" />
     <ClInclude Include="src\Utility\HPBar.hpp" />
+    <ClInclude Include="src\Utility\LeaderBoard.hpp" />
     <ClInclude Include="src\Utility\Spawner.hpp" />
     <ClInclude Include="src\Utility\Theme.hpp" />
     <ClInclude Include="src\Utility\WindowRecorder.hpp" />

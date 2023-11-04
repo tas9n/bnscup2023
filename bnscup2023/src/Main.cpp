@@ -7,6 +7,7 @@
 #include "Scene/Common.hpp"
 #include "Scene/TitleScene/TitleScene.hpp"
 #include "Scene/GameScene/GameScene.hpp"
+#include "Scene/ScoreScene/ScoreScene.hpp"
 
 void Main() {
 	Config config{ U"resource/config.json" };
@@ -15,8 +16,11 @@ void Main() {
 
 	Scene::SetBackground(theme.background);
 
-	FontAsset::Register(U"UI.Normal", 48);
-	FontAsset::Register(U"UI.Small", 24);
+	constexpr char32 DefaultFontPathName[] = U"resource/font/makinas4/Makinas-4-Square.otf";
+
+	FontAsset::Register(U"UI.Title", FontMethod::SDF, 90, DefaultFontPathName);
+	FontAsset::Register(U"UI.Normal", FontMethod::SDF, 48, DefaultFontPathName);
+	FontAsset::Register(U"UI.Small", FontMethod::SDF, 24, DefaultFontPathName);
 
 	AudioAsset::Register(U"Global.BGM", U"resource/sounds/bgm.mp3", Loop::Yes);
 	AudioAsset::Register(U"Game.PickupItem", U"resource/sounds/pickup-item.mp3");
@@ -28,9 +32,10 @@ void Main() {
 	App manager;
 	manager
 		.add<TitleScene>(SceneState::Title)
-		.add<GameScene>(SceneState::Game);
+		.add<GameScene>(SceneState::Game)
+		.add<ScoreScene>(SceneState::Score);
 
-	manager.init(SceneState::Game);
+	// manager.init(SceneState::Game);
 
 	WindowRecorder recorder;
 	bool recoderFlag = false;

@@ -4,6 +4,7 @@
 #include "../../Utility/Theme.hpp"
 #include "../../Utility/Config.hpp"
 #include "../../Utility/Spawner.hpp"
+#include "../../Utility/LeaderBoard.hpp"
 
 #include "../../GameObject/Player/Player.hpp"
 #include "../../GameObject/DamageObject/Meteo/Meteo.hpp"
@@ -23,11 +24,16 @@ class GameScene : public App::Scene {
 
 	Stopwatch m_timer{ StartImmediately::No };
 
+	Optional<AsyncHTTPTask> m_scorePostTask;
+
 	// 連続ヒットしないように時間を置く
 	Spawner m_interactInterval{ .5s, StartImmediately::No };
 
+	static constexpr double FadeOutTime = 1.0;
+	Stopwatch m_fadeoutTimer{ StartImmediately::No };
+
 	// Spawner
-	int32 m_gameLevel = 1;
+	int32 m_gameLevel = 0;
 	double m_spawnerScale = 1.0;
 	Spawner m_spawnerScaleIncreaceTimer{ 10.0s, StartImmediately::No };
 

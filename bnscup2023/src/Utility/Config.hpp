@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <Siv3D.hpp>
 #include "Debug.hpp"
+#include "LeaderBoard.hpp"
 
 struct Config {
 	JSON data;
@@ -12,6 +13,8 @@ struct Config {
 	bool allowFullscreen = false;
 
 	Size windowSize{ 1280, 720 };
+
+	String username = U"";
 
 	Config() = default;
 	Config(FilePath path) {
@@ -32,6 +35,15 @@ struct Config {
 				data[U"ui"][U"window_size"][U"x"].get<int>(),
 				data[U"ui"][U"window_size"][U"y"].get<int>()
 			};
+
+			username = data[U"username"].getString();
+			if (username.isEmpty()) {
+				username = LeaderBoard::MakeRandomUserName();
+				data[U"username"] = username;
+
+				data.save(path);
+			}
+
 		}
 		catch (Error err) {
 			Debug << err.what();
