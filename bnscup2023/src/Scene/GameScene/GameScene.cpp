@@ -129,8 +129,10 @@ void GameScene::draw() const {
 	}
 
 	// 回りを暗く
-	Config config;
-	Circle{ Scene::Center(), config.windowSize.x }.draw(ColorF{ Palette::Black, 0.0 }, Palette::Black);
+	Circle{ Scene::Center(), getData().config.windowSize.x }.draw(ColorF{ Palette::Black, 0.0 }, Palette::Black);
+
+	// 名前表示
+	FontAsset(U"UI.Small")(getData().config.username).draw(Arg::topCenter = Vec2{ getData().config.windowSize.x / 2, 10 }, theme.uiFont);
 
 	Vec2 uiPos{ 10, 40 };
 
@@ -139,8 +141,9 @@ void GameScene::draw() const {
 
 	FontAsset(U"UI.Normal")(U"Score: {}"_fmt(getData().score)).draw(uiPos, theme.uiFont);
 
-	FontAsset(U"UI.Normal")(U"経過時間: {:.1f}"_fmt(m_timer.sF())).draw(Arg::topRight(config.windowSize.x - 10, 10));
+	FontAsset(U"UI.Normal")(U"経過時間: {:.1f}"_fmt(m_timer.sF())).draw(Arg::topRight(getData().config.windowSize.x - 10, 10));
 
+	// 送信中は暗く
 	if (m_scorePostTask) {
 		double ratio = m_fadeoutTimer.sF() / FadeOutTime;
 		ratio = Math::Clamp(ratio, 0, m_fadeoutTimer.sF() / FadeOutTime);

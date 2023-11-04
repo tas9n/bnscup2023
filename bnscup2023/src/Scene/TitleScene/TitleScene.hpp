@@ -15,6 +15,12 @@ class TitleScene : public App::Scene {
 	Rect m_gameStartButton;
 	Rect m_highscoreButton;
 
+	Rect m_usernameField;
+	Rect m_usernameEditField;
+
+	static constexpr size_t MaxUsernameLength = 12;
+	TextEditState m_usernameEditState;
+
 public:
 	TitleScene(const InitData&);
 

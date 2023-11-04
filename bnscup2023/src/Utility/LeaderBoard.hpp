@@ -128,22 +128,14 @@ namespace LeaderBoard {
 
 	/// @brief ランダムなユーザー名を作成します。
 	/// @return ランダムなユーザー名
-	inline String MakeRandomUserName()
-	{
-		static const Array<String> words1 =
-		{
-			U"Blue", U"Red", U"Green", U"Silver", U"Gold",
-			U"Happy", U"Angry", U"Sad", U"Exciting", U"Scary",
-			U"Big", U"Small", U"Large", U"Tiny", U"Short",
-		};
-
-		static const Array<String> words2 =
+	inline String MakeRandomUserName() {
+		static const Array<String> words =
 		{
 			U"Lion", U"Dragon", U"Tiger", U"Eagle", U"Shark",
 			U"Pizza", U"Curry", U"Ramen", U"Sushi", U"Salad",
 			U"Cat", U"Dog", U"Mouse", U"Rabbit", U"Fox",
 		};
 
-		return (U"{} {} {:0>4}"_fmt(words1.choice(), words2.choice(), Random(9999)));
+		return (U"{}-{:0>4}"_fmt(words.choice(), Random(9999)));
 	}
 }

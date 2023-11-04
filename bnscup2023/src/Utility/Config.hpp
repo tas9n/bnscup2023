@@ -4,6 +4,8 @@
 #include "LeaderBoard.hpp"
 
 struct Config {
+	FilePath path;
+
 	JSON data;
 
 	String title = U"Title";
@@ -17,11 +19,12 @@ struct Config {
 	String username = U"";
 
 	Config() = default;
-	Config(FilePath path) {
-		init(path);
+	Config(FilePath filepath) {
+		init(filepath);
 	}
 
-	void init(FilePath path) {
+	void init(FilePath _path) {
+		path = _path;
 		try {
 			data = JSON::Load(path);
 
@@ -39,15 +42,19 @@ struct Config {
 			username = data[U"username"].getString();
 			if (username.isEmpty()) {
 				username = LeaderBoard::MakeRandomUserName();
-				data[U"username"] = username;
 
-				data.save(path);
+				saveUsername();
 			}
 
 		}
 		catch (Error err) {
 			Debug << err.what();
 		}
+	}
+
+	void saveUsername() {
+		data[U"username"] = username;
+		data.save(path);
 	}
 
 	void apply() {
