@@ -33,7 +33,7 @@ int32 Player::onCollision(std::shared_ptr<GameObject>& other, bool interval) {
 	}
 	if (other->Type == GameObject::TypeTag::Hole) {
 		if (interval) damage(dynamic_cast<DamageObject*>(other.get())->getDamage());
-		angle = Math::LerpAngle(angle, Vec2{ other->pos - pos }.getAngle(), 0.01);
+		angle = Math::LerpAngle(angle, Vec2{ other->pos - pos }.getAngle(), 0.0075);
 
 		return 0;
 	}

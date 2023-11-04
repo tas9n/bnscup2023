@@ -21,19 +21,28 @@ class GameScene : public App::Scene {
 
 	static constexpr int32 JunkScoreAmmount = 100;
 
+	Stopwatch m_timer{ StartImmediately::No };
+
 	// 連続ヒットしないように時間を置く
-	Spawner m_interactInterval{ 1.0s, StartImmediately::Yes };
+	Spawner m_interactInterval{ .5s, StartImmediately::No };
 
 	// Spawner
-	Spawner m_meteoSpawner{ 0.75s, StartImmediately::Yes };
-	Spawner m_junkSpawner{ 1.25s, StartImmediately::Yes };
-	Spawner m_holeSpawner{ 6.5s, StartImmediately::Yes };
-	Spawner m_medicineSpawner{ 5.0s, StartImmediately::Yes };
-	Spawner m_injectorSpawner{ 6.0s, StartImmediately::Yes };
+	int32 m_gameLevel = 1;
+	double m_spawnerScale = 1.0;
+	Spawner m_spawnerScaleIncreaceTimer{ 10.0s, StartImmediately::No };
+
+	static constexpr double LevelUpAnimTime = 2.5;
+	Stopwatch m_levelUpAnimTimer{ StartImmediately::No };
+
+	Spawner m_meteoSpawner{ 0.75s, StartImmediately::No };
+	Spawner m_junkSpawner{ 1.25s, StartImmediately::No };
+	Spawner m_holeSpawner{ 6.5s, StartImmediately::No };
+	Spawner m_medicineSpawner{ 5.0s, StartImmediately::No };
+	Spawner m_injectorSpawner{ 6.0s, StartImmediately::No };
 
 	// Effect
 	Effect m_effect;
-	Spawner m_twinkleStarSpawner{ 0.05s, StartImmediately::Yes };
+	Spawner m_twinkleStarSpawner{ 0.05s, StartImmediately::No };
 
 	Spawner m_applyInjectorTimer{ 5.0s, StartImmediately::No };
 

@@ -12,8 +12,10 @@ struct Spawner {
 
 	}
 
-	bool update() {
-		if (duration <= watch.elapsed()) {
+	bool update(double scale = 1.0) {
+		if (not watch.isStarted()) watch.start();
+
+		if (duration / scale <= watch.elapsed()) {
 			watch.restart();
 			return true;
 		}

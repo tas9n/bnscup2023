@@ -16,11 +16,13 @@ void Main() {
 	Scene::SetBackground(theme.background);
 
 	FontAsset::Register(U"UI.Normal", 48);
+	FontAsset::Register(U"UI.Small", 24);
 
 	AudioAsset::Register(U"Global.BGM", U"resource/sounds/bgm.mp3", Loop::Yes);
 	AudioAsset::Register(U"Game.PickupItem", U"resource/sounds/pickup-item.mp3");
 	AudioAsset::Register(U"Game.Hit.Blackhole", U"resource/sounds/hit-blackhole.mp3");
 	AudioAsset::Register(U"Game.Player.Damaged", U"resource/sounds/player.damaged.mp3");
+	AudioAsset::Register(U"Game.Levelup", U"resource/sounds/levelup.mp3");
 
 	// シーンのあれこれ
 	App manager;

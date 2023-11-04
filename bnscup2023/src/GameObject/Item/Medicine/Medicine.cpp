@@ -1,7 +1,7 @@
 ﻿#include "Medicine.hpp"
 
 Medicine::Medicine(const Vec2& position) :
-	Item(GameObject::TypeTag::Medicine, position, AssetName, U"💊"_emoji, TextureSize, TextureSize, .5, -10) {
+	Item(GameObject::TypeTag::Medicine, position, AssetName, U"🛠️"_emoji, TextureSize, TextureSize, .5, -10) {
 
 }
 

@@ -9,6 +9,8 @@ GameScene::GameScene(const InitData& init) : IScene(init),
 void GameScene::update() {
 	Config config;
 
+	if (not m_timer.isStarted()) m_timer.start();
+
 	m_objects.remove_if([](const std::shared_ptr<GameObject>& object) {
 		return object->getMaxLifetime() <= object->timer.sF();
 	});
@@ -20,24 +22,29 @@ void GameScene::update() {
 
 	// Spawn
 
-	if (m_meteoSpawner.update()) {
+	if (m_meteoSpawner.update(m_spawnerScale)) {
 		auto pos = getPointOnRandomEdge(config.windowSize);
 		m_objects << std::make_shared<Meteo>(m_player.pos - config.windowSize / 2 + pos);
 	}
 
-	if (m_junkSpawner.update()) {
+	if (m_junkSpawner.update(m_spawnerScale)) {
 		m_objects << std::make_shared<Junk>(m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }));
 	}
 
-	if (m_holeSpawner.update()) {
+	if (m_holeSpawner.update(m_spawnerScale)) {
 		m_objects << std::make_shared<Hole>(OffsetCircular{ m_player.pos, 128.0 + Random(0, config.windowSize.x / 2 - 128), Random(0.0, 360_deg) });
 	}
 
-	if (m_medicineSpawner.update()) {
+	if (m_medicineSpawner.update(m_spawnerScale)) {
 		m_objects << std::make_shared<Medicine>(m_player.pos - config.windowSize / 2 + RandomVec2(RectF{ config.windowSize }));
 	}
 
+	if (LevelUpAnimTime <= m_levelUpAnimTimer.sF()) {
+		m_levelUpAnimTimer.reset();
+	}
+
 	// Updates
+	m_player.speed = m_spawnerScale;
 	m_player.update();
 
 	for (std::shared_ptr<GameObject>& object : m_objects) {
@@ -52,8 +59,22 @@ void GameScene::update() {
 		changeScene(SceneState::Score);
 	}
 
+	if (m_spawnerScaleIncreaceTimer.update()) {
+		addScore(static_cast<int32>(100.0 * (0.1 * m_gameLevel)));
+
+		m_gameLevel += 1;
+
+		AudioAsset(U"Game.Levelup").playOneShot(0.7);
+
+		m_spawnerScale = 1.0 + 0.1 * m_gameLevel;
+
+		// Print << U"Level UP!: {}"_fmt(m_gameLevel);
+		m_spawnerScaleIncreaceTimer.duration *= m_spawnerScale;
+		m_levelUpAnimTimer.start();
+	}
+
 	// カメラ追従
-	m_camera.setCenter(m_camera.getCenter().lerp(m_player.pos, 0.0075));
+	m_camera.setCenter(m_camera.getCenter().lerp(m_player.pos, m_camera.getCenter().distanceFrom(m_player.pos) / 10000));
 }
 
 void GameScene::updateFadeIn(double) {
@@ -79,6 +100,14 @@ void GameScene::draw() const {
 		}
 
 		m_player.draw();
+
+		if (m_levelUpAnimTimer.isStarted()) {
+			if (m_levelUpAnimTimer.sF() < LevelUpAnimTime) {
+				double ratio = Periodic::Jump0_1(LevelUpAnimTime, m_levelUpAnimTimer.sF());
+				FontAsset(U"UI.Small")(U"Level Up!!\n(Level: {})"_fmt(m_gameLevel))
+					.drawAt(m_player.pos, ColorF{ Palette::Lightgreen, ratio });
+			}
+		}
 	}
 
 	// 回りを暗く
@@ -91,6 +120,9 @@ void GameScene::draw() const {
 	uiPos.y += 32 + 10;
 
 	FontAsset(U"UI.Normal")(U"Score: {}"_fmt(getData().score)).draw(uiPos, theme.uiFont);
+
+	FontAsset(U"UI.Normal")(U"経過時間: {:.1f}"_fmt(m_timer.sF())).draw(Arg::topRight(config.windowSize.x - 10, 10));
+
 }
 
 template<class T>
