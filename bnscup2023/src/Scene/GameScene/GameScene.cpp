@@ -3,6 +3,8 @@
 GameScene::GameScene(const InitData& init) : IScene(init),
 	m_camera{ Vec2::Zero(), 1.0 }, m_player{ Vec2::Zero() } {
 
+	m_interactInterval.watch.set(m_interactInterval.duration);
+
 	AudioAsset(U"Global.BGM").playOneShot(0.5, 0.0, 0.75);
 }
 
