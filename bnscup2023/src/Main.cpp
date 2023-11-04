@@ -44,6 +44,8 @@ void Main() {
 	while (System::Update()) {
 		if (not manager.update()) break;
 
+		continue;
+
 		if (KeyR.down()) {
 			if(not recorder.isOpen())
 				recorder.open(U"../../gameplay.mp4", config.windowSize, 60);
