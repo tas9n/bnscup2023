@@ -57,6 +57,12 @@ void TitleScene::draw() const {
 			.drawAt(TextStyle::Outline(.0, .5, Palette::White), center.movedBy(.0, -64.0), theme.background);
 	}
 
+	// version
+	{
+		FontAsset(U"UI.Small")(U"version - {}"_fmt(getData().config.version))
+			.draw(Arg::bottomRight = getData().config.windowSize.movedBy(-10, -10), theme.uiFont);
+	}
+
 	// gamestart
 	{
 		m_gameStartButton.draw(m_gameStartButton.mouseOver() ? theme.background : Palette::White).drawFrame(4.0, Palette::White);
