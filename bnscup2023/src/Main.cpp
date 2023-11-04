@@ -10,7 +10,7 @@
 #include "Scene/ScoreScene/ScoreScene.hpp"
 
 void Main() {
-	Config config{ U"resource/config.json" };
+	Config config{ U"space_collector.config.json" };
 
 	config.apply();
 
